@@ -1,27 +1,35 @@
-<script setup>
+<script>
 import ToDoItem from "@/components/ToDoItem.vue";
+import ToDoForm from "@/components/ToDoForm.vue";
 import uniqueId from "lodash.uniqueid";
-import { ref } from 'vue';
+import {ref} from 'vue';
 
-// 创建 ref 来管理状态
-const ToDoItems = ref([
-    { id: uniqueId("todo-"), label: "Learn Vue", done: false },
-    {
-        id: uniqueId("todo-"),
-        label: "Create a Vue project with the CLI",
-        done: true,
+export default {
+    name: "app",
+    components: {
+        ToDoItem, ToDoForm,
     },
-    { id: uniqueId("todo-"), label: "Have fun", done: true },
-    { id: uniqueId("todo-"), label: "Create a to-do list", done: false },
-]);
+    data() {
+        return {
+            ToDoItems: [
+                {id: uniqueId("todo-"), label: "Learn Vue", done: false},
+                {id: uniqueId("todo-"), label: "Create a Vue project with the CLI", done: true},
+                {id: uniqueId("todo-"), label: "Have fun", done: true},
+                {id: uniqueId("todo-"), label: "Create a to-do list", done: false},
+            ],
+        };
+    },
+};
+
 </script>
 
 <template>
     <div id="app">
-        <h1>To-Do List</h1>
+        <h1>My To-Do List</h1>
+        <to-do-form></to-do-form>
         <ul>
-            <li>
-                <to-do-item label="My ToDo Item" :done="true"></to-do-item>
+            <li v-for="item in ToDoItems" :key="item.id">
+                <to-do-item :label="item.label" :done="true" :id="item.id"></to-do-item>
             </li>
         </ul>
     </div>

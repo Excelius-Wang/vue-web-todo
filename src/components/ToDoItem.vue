@@ -1,23 +1,25 @@
-<script setup>
+<script>
 import uniqueId from "lodash.uniqueid";
 
-const props = defineProps({
+export default {
     props: {
         label: {required: true, type: String},
-        done: {default: false, type: Boolean}
+        done: {default: false, type: Boolean},
+        id: {required: true, type: String},
     },
     data() {
         return {
             isDone: this.done,
-            id: uniqueId("todo-"),
         };
     },
-});
+};
+
 </script>
 
 <template>
     <div>
         <input type="checkbox" :id="id" :checked="isDone"/>
+
         <label :for="id">{{ label }}</label>
     </div>
 </template>
